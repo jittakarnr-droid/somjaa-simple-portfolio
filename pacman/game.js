@@ -80,6 +80,16 @@ function initMap() {
 }
 
 // UI Logic
+const bestScoreElem = document.getElementById('best-score');
+const bestUserElem = document.getElementById('best-user');
+
+function updateBestScoreDisplay() {
+    const best = getHighScore();
+    bestScoreElem.innerText = best.score;
+    bestUserElem.innerText = best.user;
+}
+updateBestScoreDisplay();
+
 document.querySelectorAll('.color-circle').forEach(circle => {
     circle.addEventListener('click', () => {
         document.querySelector('.color-circle.selected').classList.remove('selected');
@@ -270,15 +280,21 @@ function endGame(win) {
     saveScore(score);
 }
 
-async function saveScore(score) {
+function saveScore(score) {
     const username = usernameInput.value || 'Anonymous';
-    try {
-        await fetch('/api/scores', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, score })
-        });
-    } catch (err) {
-        console.error('Error saving score:', err);
+    const highScore = localStorage.getItem('pacman_highScore') || 0;
+    
+    if (score > highScore) {
+        localStorage.setItem('pacman_highScore', score);
+        localStorage.setItem('pacman_highScore_user', username);
+        alert(`New High Score: ${score}!`);
     }
+}
+
+// Function to get high score for display
+function getHighScore() {
+    return {
+        score: localStorage.getItem('pacman_highScore') || 0,
+        user: localStorage.getItem('pacman_highScore_user') || 'None'
+    };
 }
