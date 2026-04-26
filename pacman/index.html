@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pac-Man Clone</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="ui-container">
+        <div id="start-screen">
+            <h1>PAC-MAN</h1>
+            <p>Select your color:</p>
+            <div class="color-options">
+                <div class="color-circle selected" data-color="yellow" style="background-color: yellow;"></div>
+                <div class="color-circle" data-color="cyan" style="background-color: cyan;"></div>
+                <div class="color-circle" data-color="pink" style="background-color: pink;"></div>
+                <div class="color-circle" data-color="orange" style="background-color: orange;"></div>
+            </div>
+            <div class="input-group">
+                <p>Username:</p>
+                <input type="text" id="username" placeholder="Enter name..." maxlength="10">
+            </div>
+            <p>Difficulty:</p>
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-speed="1.0">Easy</button>
+                <button class="difficulty-btn selected" data-speed="1.5">Medium</button>
+                <button class="difficulty-btn" data-speed="2.5">Hard</button>
+            </div>
+            <div class="slider-group">
+                <p>Custom Speed: <span id="speed-val">1.5</span>x</p>
+                <input type="range" id="speed-slider" min="0.5" max="4.0" step="0.1" value="1.5">
+            </div>
+            <button id="start-button">START GAME</button>
+        </div>
+        <div id="game-over" class="hidden">
+            <h1 id="status-text">GAME OVER</h1>
+            <p>Score: <span id="final-score">0</span></p>
+            <button id="restart-button">PLAY AGAIN</button>
+        </div>
+    </div>
+    <div id="game-container" class="hidden">
+        <div id="hud">Score: <span id="score">0</span></div>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
